@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<meta charset="utf-8" />
+<meta charset="utf-8"/>
 <title>WebSocket Test</title>
 <script src="node_modules/actioncable/lib/assets/compiled/action_cable.js"></script>
 <script language="javascript" type="text/javascript">
@@ -7,15 +7,40 @@
 
     //var cable = ActionCable.createConsumer('wss://ca-chat-demo.herokuapp.com/cable');
     //var cable = ActionCable.createConsumer('ws://localhost:3000');
-    (function() {
+    (function () {
         this.App || (this.App = {});
 
-        App.cable = ActionCable.createConsumer('ws://localhost:3000');
+        App.cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
     }).call(this);
-    App.cable.subscriptions.create('RoomChannel', {
-        connected: function () {
-         console.log('we are connected')
+    App.room = App.cable.subscriptions.create('RoomChannel', {
+        connected: function (data) {
+            // Called when the subscription is ready for use on the server
+            console.log(data)
+        },
+
+        disconnected: function () {
+            // Called when the subscription has been terminated by the server
+            console.log('disconnected')
+        },
+
+        received: function (data) {
+            // Called when there's incoming data on the websocket for this channel
+            return this.appendMessage(data);
+
+        },
+
+        appendMessage: function (data) {
+            debugger;
+
+            var childNumber = 1;
+
+            
+            var parent = document.getElementById('output');
+            var newChild = data.message;
+            parent.insertAdjacentHTML('beforeend', newChild);
+            childNumber++;
+
         }
     });
 </script>
