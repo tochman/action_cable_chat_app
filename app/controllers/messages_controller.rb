@@ -35,7 +35,7 @@ class MessagesController < ApplicationController
 
   def get_messages
     @messages = Message.for_display
-    #@message = current_user.messages.build if current_user
+    @message = current_user.messages.build if current_user
   end
 
   def message_params

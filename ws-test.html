@@ -7,8 +7,8 @@
     (function () {
         this.App || (this.App = {});
 
-        App.cable = ActionCable.createConsumer('ws://localhost:3000/cable');
-        //App.cable = ActionCable.createConsumer('wss://ca-chat-demo.herokuapp.com/cable');
+        // App.cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+        App.cable = ActionCable.createConsumer('wss://ca-chat-demo.herokuapp.com/cable');
 
     }).call(this);
 
@@ -38,25 +38,28 @@
             //debugger;
             //App.room.send({message: {content: message}})
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://localhost:3000/messages", true);
-           // xhttp.open("POST", "https://ca-chat-demo.herokuapp.com/messages", true);
+            //xhttp.open("POST", "http://localhost:3000/messages", true);
+            xhttp.open("POST", "https://ca-chat-demo.herokuapp.com/messages", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send(JSON.stringify({message: {content: message}}));
         }
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        var input = document.getElementById('message')
-        input.addEventListener('keydown', changeEventHandler(input));
+        var input = document.getElementById('message');
+        input.addEventListener('keydown', function () {
+            if (input.value.length >= 10) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "https://localhost:3000/api/analyses", true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                var resp = xhttp.send({analysis: {resource: input.value, category: 'text'}});
+                //debugger;
+                console.log(resp)
+            }
+        });
 
     }, false);
 
-
-    function changeEventHandler(object) {
-        if (object.target.value.length > 10) {
-            debugger
-        }
-    }
 
 </script>
 
