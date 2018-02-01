@@ -35,15 +35,32 @@
             parent.insertAdjacentHTML('beforeend', newChild);
         },
 
-        sendMessage: function(message) {
+        sendMessage: function (message) {
             //debugger;
             //App.room.send({message: {content: message}})
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://localhost:3000/messages", true);
+            xhttp.open("POST", "https://ca-chat-demo.herokuapp.com/messages", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send(JSON.stringify({message: {content: message}}));
         }
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var input = document.getElementById('message')
+        input.addEventListener('keydown', function (event) {
+            var keyName = event.key;
+            console.log('keydown event\n\n' + 'key: ' + keyName);
+        });
+
+    }, false);
+
+
+    function changeEventHandler(event) {
+        // You can use “this” to refer to the selected element.
+        if (!event.target.value) alert('Please Select One');
+        else alert('You like ' + event.target.value + ' ice cream.');
+    }
+
 </script>
 
 <h2>Message client</h2>
@@ -51,7 +68,7 @@
 <div id="output"></div>
 
 <form>
-    Your message: <input type="text" id="message" name="message" />
+    Your message: <input type="textarea" id="message" name="message"/>
     <input type="button" value="Send message"
-           onclick="App.room.sendMessage(document.getElementById('message').value);" />
+           onclick="App.room.sendMessage(document.getElementById('message').value);"/>
 </form>
