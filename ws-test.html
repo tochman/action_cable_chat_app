@@ -7,9 +7,8 @@
     (function () {
         this.App || (this.App = {});
 
-        // wss://ca-chat-demo.herokuapp.com/cable
-        //App.cable = ActionCable.createConsumer('ws://localhost:3000/cable');
-        App.cable = ActionCable.createConsumer('wss://ca-chat-demo.herokuapp.com/cable');
+        App.cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+        //App.cable = ActionCable.createConsumer('wss://ca-chat-demo.herokuapp.com/cable');
 
     }).call(this);
 
@@ -39,7 +38,8 @@
             //debugger;
             //App.room.send({message: {content: message}})
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "https://ca-chat-demo.herokuapp.com/messages", true);
+            xhttp.open("POST", "http://localhost:3000/messages", true);
+           // xhttp.open("POST", "https://ca-chat-demo.herokuapp.com/messages", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send(JSON.stringify({message: {content: message}}));
         }
