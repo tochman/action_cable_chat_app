@@ -24,3 +24,5 @@
 /spring/*.pid
 
 .DS_Store
+.idea/
+.idea
