@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails',                   '5.0.1'
 gem 'bcrypt',                  '3.1.11'
 gem 'faker',                   '1.6.6'
-gem 'puma',                    '3.4.0'
+gem 'puma'
 gem 'sass-rails',              '5.0.6'
 gem 'uglifier',                '3.0.0'
 gem 'coffee-rails',            '4.2.1'
@@ -15,8 +15,7 @@ gem 'redis',                   '3.3.1'
 gem 'pg',                      '0.19.0'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.13'
-  gem 'byebug',  '9.0.0', platform: :mri
+  gem 'pry-byebug'
 end
 
 group :development do
