@@ -4,10 +4,12 @@
 <script src="https://unpkg.com/actioncable@5.1.4/lib/assets/compiled/action_cable.js"></script>
 <script language="javascript" type="text/javascript">
 
-
     (function () {
         this.App || (this.App = {});
-        App.cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+
+        // wss://ca-chat-demo.herokuapp.com/cable
+        //App.cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+        App.cable = ActionCable.createConsumer('wss://ca-chat-demo.herokuapp.com/cable');
 
     }).call(this);
 
@@ -25,7 +27,6 @@
         received: function (data) {
             // Called when there's incoming data on the websocket for this channel
             return this.appendMessage(data);
-
         },
 
         appendMessage: function (data) {
