@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>WebSocket Test</title>
+<script src="node_modules/actioncable/lib/assets/compiled/action_cable.js"></script>
+<script language="javascript" type="text/javascript">
+
+
+    //var cable = ActionCable.createConsumer('wss://ca-chat-demo.herokuapp.com/cable');
+    //var cable = ActionCable.createConsumer('ws://localhost:3000');
+    (function() {
+        this.App || (this.App = {});
+
+        App.cable = ActionCable.createConsumer('ws://localhost:3000');
+
+    }).call(this);
+    App.cable.subscriptions.create('RoomChannel', {
+        connected: function () {
+         console.log('we are connected')
+        }
+    });
+</script>
+
+<h2>WebSocket Test</h2>
+
+<div id="output"></div>
