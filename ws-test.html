@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <meta charset="utf-8"/>
 <title>WebSocket Test</title>
-<script src="node_modules/actioncable/lib/assets/compiled/action_cable.js"></script>
+<script src="https://unpkg.com/actioncable@5.1.4/lib/assets/compiled/action_cable.js"></script>
 <script language="javascript" type="text/javascript">
 
 
-    //var cable = ActionCable.createConsumer('wss://ca-chat-demo.herokuapp.com/cable');
-    //var cable = ActionCable.createConsumer('ws://localhost:3000');
     (function () {
         this.App || (this.App = {});
-
         App.cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
     }).call(this);
+
     App.room = App.cable.subscriptions.create('RoomChannel', {
         connected: function (data) {
             // Called when the subscription is ready for use on the server
@@ -31,20 +29,28 @@
         },
 
         appendMessage: function (data) {
-            debugger;
-
-            var childNumber = 1;
-
-            
             var parent = document.getElementById('output');
             var newChild = data.message;
             parent.insertAdjacentHTML('beforeend', newChild);
-            childNumber++;
+        },
 
+        sendMessage: function(message) {
+            //debugger;
+            //App.room.send({message: {content: message}})
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "http://localhost:3000/messages", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify({message: {content: message}}));
         }
     });
 </script>
 
-<h2>WebSocket Test</h2>
+<h2>Message client</h2>
 
 <div id="output"></div>
+
+<form>
+    Your message: <input type="text" id="message" name="message" />
+    <input type="button" value="Send message"
+           onclick="App.room.sendMessage(document.getElementById('message').value);" />
+</form>

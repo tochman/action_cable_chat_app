@@ -13,6 +13,7 @@ gem 'jbuilder',                '2.4.1'
 gem 'kramdown',                '1.12.0'
 gem 'redis',                   '3.3.1'
 gem 'pg',                      '0.19.0'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'pry-byebug'
