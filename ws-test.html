@@ -47,18 +47,15 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         var input = document.getElementById('message')
-        input.addEventListener('keydown', function (event) {
-            var keyName = event.key;
-            console.log('keydown event\n\n' + 'key: ' + keyName);
-        });
+        input.addEventListener('keydown', changeEventHandler(input));
 
     }, false);
 
 
-    function changeEventHandler(event) {
-        // You can use “this” to refer to the selected element.
-        if (!event.target.value) alert('Please Select One');
-        else alert('You like ' + event.target.value + ' ice cream.');
+    function changeEventHandler(object) {
+        if (object.target.value.length > 10) {
+            debugger
+        }
     }
 
 </script>
