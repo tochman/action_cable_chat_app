@@ -36,8 +36,10 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  config.action_cable.url = 'wss://secret-island-20501.herokuapp.com/cable'
-  config.action_cable.allowed_request_origins = [ 'https://secret-island-20501.herokuapp.com' ]
+  config.action_cable.url = 'wss://ca-chat-demo.herokuapp.com/cable'
+  config.action_cable.allowed_request_origins = [
+    'https://ca-chat-demo.herokuapp.com'
+  ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
