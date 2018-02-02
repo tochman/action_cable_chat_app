@@ -32,6 +32,7 @@
             var parent = document.getElementById('output');
             var newChild = data.message;
             parent.insertAdjacentHTML('beforeend', newChild);
+            this.notifyMe(strip(data.message).split(':')[1].trim());
         },
 
         sendMessage: function (message) {
@@ -42,10 +43,35 @@
             xhttp.open("POST", "https://ca-chat-demo.herokuapp.com/messages", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send(JSON.stringify({message: {content: message}}));
+        },
+
+
+        notifyMe: function (text) {
+            if (Notification.permission !== "granted")
+                Notification.requestPermission();
+            else {
+                var notification = new Notification('Notification title', {
+                    icon: 'https://github.com/CraftAcademy/craft-assets/blob/gh-pages/images/logo/graphic_only_logo_white.png?raw=true',
+                    body: text
+                });
+
+                notification.onclick = function () {
+                    window.open("http://stackoverflow.com/a/13328397/1269037");
+                };
+
+            }
+
         }
     });
 
     document.addEventListener('DOMContentLoaded', function () {
+
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+
+        }
+
+
         var input = document.getElementById('message');
         input.addEventListener('keydown', function () {
             if (input.value.length >= 10) {
@@ -64,7 +90,25 @@
             }
         });
 
+
     }, false);
+
+    function strip(str){
+        // Remove some tags
+        str = str.replace(/<[^>]+>/gim, '');
+
+        // Remove BB code
+        str = str.replace(/\[(\w+)[^\]]*](.*?)\[\/\1]/g, '$2 ');
+
+        // Remove html and line breaks
+        const div = document.createElement('div');
+        div.innerHTML = str;
+
+        const input = document.createElement('input');
+        input.value = div.textContent || div.innerText || '';
+
+        return input.value.trim();
+    }
 
 
 </script>
