@@ -4,10 +4,9 @@ class ApplicationController < ActionController::Base
 
     # Confirms a logged-in user.
     def logged_in_user
-      binding.pry
       unless logged_in?
-        #flash[:danger] = "Please log in."
-        #redirect_to login_url
+        flash[:danger] = "Please log in."
+        redirect_to login_url
         @current_user = User.create!, {validate: false}
       end
     end
